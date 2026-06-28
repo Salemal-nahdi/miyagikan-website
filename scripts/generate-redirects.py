@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Generate Netlify _redirects for clean URLs on a custom domain."""
+"""Generate Netlify _redirects for clean URLs."""
 
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = ROOT / "miyagikan.com.au"
-REDIRECTS = ROOT / "_redirects"
+REDIRECTS = SITE / "_redirects"
 
 lines = [
-    "/    /miyagikan.com.au/index.html    200",
-    "/thank-you/    /miyagikan.com.au/thank-you/index.html    200",
-    "/search/    /miyagikan.com.au/search/index.html    200",
+    "/    /index.html    200",
+    "/thank-you/    /thank-you/index.html    200",
+    "/search/    /search/index.html    200",
 ]
 
 for index in SITE.rglob("index.html"):
@@ -18,7 +18,7 @@ for index in SITE.rglob("index.html"):
     if rel == ".":
         continue
     public_path = f"/{rel}/"
-    target = f"/miyagikan.com.au/{rel}/index.html"
+    target = f"/{rel}/index.html"
     lines.append(f"{public_path}    {target}    200")
 
 REDIRECTS.write_text("\n".join(sorted(set(lines))) + "\n", encoding="utf-8")
