@@ -43,15 +43,43 @@ def fix_corrupt_css(text: str) -> str:
     return text
 
 
+def fix_nav_block(block: str) -> str:
+    def fix_li(match: re.Match[str]) -> str:
+        li = match.group(0)
+        title = re.search(r'w-nav-title">\s*([^<]+)\s*</span>', li)
+        if title:
+            label = title.group(1).strip().upper()
+        else:
+            plain = re.search(r">\s*([^<]+)\s*</a>\s*</li>", li, re.I)
+            if not plain:
+                return li
+            label = plain.group(1).strip().upper()
+        url = NAV_TARGETS.get(label)
+        if not url:
+            return li
+        return re.sub(r'(<a[^>]*href=")[^"]*(")', rf"\1{url}\2", li, count=1)
+
+    return re.sub(r"<li\b.*?</li>", fix_li, block, flags=re.S)
+
+
 def fix_main_nav(text: str) -> str:
-    for label, url in NAV_TARGETS.items():
-        text = re.sub(
-            rf'(<li[^>]*>\s*<a[^>]*href=")[^"]*("[^>]*>\s*{label}\s*</a>)',
-            rf"\1{url}\2",
-            text,
-            flags=re.I,
-        )
+    text = re.sub(
+        r"(<header\b.*?</header>)",
+        lambda match: fix_nav_block(match.group(1)),
+        text,
+        flags=re.I | re.S,
+    )
+    text = re.sub(
+        r'(<div class="l-subfooter at_bottom".*?</div>\s*</div>)',
+        lambda match: fix_nav_block(match.group(1)),
+        text,
+        flags=re.I | re.S,
+    )
     return text
+
+
+def fix_logo_link(text: str) -> str:
+    return re.sub(r'(<a class="w-img-h" href=")[^"]*(")', r"\1/\2", text)
 
 
 def fix_index_aliases(text: str) -> str:
@@ -65,7 +93,18 @@ def fix_index_aliases(text: str) -> str:
             text = text.replace(f"href={quote}{token}{quote}", f"href={quote}{canonical}{quote}")
             text = text.replace(f"href={quote}/{bare}{quote}", f"href={quote}{canonical}{quote}")
             text = text.replace(f"href={quote}{bare}{quote}", f"href={quote}{canonical}{quote}")
-            text = text.replace(f"href={quote}../{token}{quote}", f"href={quote}{canonical}{quote}")
+
+        # Same-page anchor links on mirrored location tabs.
+        text = re.sub(
+            rf'href=(["\'])\.\./{re.escape(token)}(#[^"\']*)\1',
+            rf"href=\1{canonical}\2\1",
+            text,
+        )
+
+        # ../index-p-1083.html without a hash was the corrupted home link on subpages.
+        if page_id == "1083":
+            text = text.replace(f'href="../{token}"', 'href="/"')
+            text = text.replace(f"href='../{token}'", "href='/'")
 
         # Preloader images incorrectly linked to page aliases.
         text = text.replace(
@@ -102,7 +141,7 @@ def fix_index_aliases(text: str) -> str:
         text,
     )
 
-    return fix_main_nav(text)
+    return fix_logo_link(fix_main_nav(text))
 
 
 def sync_alias_pages() -> None:
