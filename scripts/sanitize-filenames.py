@@ -52,6 +52,10 @@ def reference_variants(text: str) -> set[str]:
     add(text)
     if "?" in text:
         base = text.split("?", 1)[0]
+        # Never map bare index.html from index.html?p=… query URLs; that corrupts
+        # every normal index.html reference across the mirrored site.
+        if base == "index.html":
+            return variants
         if re.search(r"\.(css|js|eot|woff2?|ttf|svg|html|png|jpe?g|gif|cur|ico)$", base, re.I):
             add(base)
     return variants

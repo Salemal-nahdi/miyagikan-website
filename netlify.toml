@@ -1,6 +1,6 @@
 [build]
   publish = "miyagikan.com.au"
-  command = "python3 scripts/setup-netlify-forms.py && python3 scripts/sanitize-secrets.py && python3 scripts/sanitize-filenames.py && python3 scripts/prepare-netlify-deploy.py && python3 scripts/generate-redirects.py"
+  command = "python3 scripts/setup-netlify-forms.py && python3 scripts/sanitize-secrets.py && python3 scripts/sanitize-filenames.py && python3 scripts/prepare-netlify-deploy.py && python3 scripts/fix-site-links.py && python3 scripts/generate-redirects.py"
 
 [build.environment]
   PYTHONUNBUFFERED = "1"

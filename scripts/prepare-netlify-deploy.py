@@ -61,6 +61,10 @@ def fix_html_paths(text: str) -> str:
         '<img src="/wp-content/uploads/2020/01/MiyagiWhite.png" alt="" />',
     )
     text = text.replace(
+        '<img src="../index-p-1083.html" alt="" />',
+        '<img src="/wp-content/uploads/2020/01/MiyagiWhite.png" alt="" />',
+    )
+    text = text.replace(
         '<img src="index.html" alt="" />',
         '<img src="/wp-content/uploads/2020/01/MiyagiWhite.png" alt="" />',
     )

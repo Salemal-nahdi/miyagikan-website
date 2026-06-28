@@ -18,20 +18,20 @@
   <div class="wrap">
     <h1>Search results</h1>
     <div id="results"></div>
-    <a class="back" href="../index-p-1083.html">&larr; Back to home</a>
+    <a class="back" href="/locations/">&larr; Back to home</a>
   </div>
   <script>
     var pages = [
       { url: "../index-p-1083.html", title: "Home", terms: "miyagi kan karate home welcome" },
-      { url: "../about/index-p-1083.html", title: "About", terms: "about history goju ryu traditional" },
-      { url: "../classes/index-p-1083.html", title: "Classes", terms: "classes training schedule beginners advanced" },
-      { url: "../instructors/index-p-1083.html", title: "Instructors", terms: "instructors teachers sensei barounis" },
-      { url: "../locations/index-p-1083.html", title: "Locations", terms: "locations dojo revesby lismore gladesville blacktown ballina" },
-      { url: "../gallery/index-p-1083.html", title: "Gallery", terms: "gallery photos images" },
-      { url: "../events/index-p-1083.html", title: "Events", terms: "events calendar competitions" },
-      { url: "../links/index-p-1083.html", title: "Links", terms: "links resources affiliations" },
-      { url: "../enquiry/index-p-1083.html", title: "Contact", terms: "contact enquiry email phone message" },
-      { url: "../blog/index-p-1083.html", title: "Blog", terms: "blog news posts" }
+      { url: "about/", title: "About", terms: "about history goju ryu traditional" },
+      { url: "classes/", title: "Classes", terms: "classes training schedule beginners advanced" },
+      { url: "instructors/", title: "Instructors", terms: "instructors teachers sensei barounis" },
+      { url: "locations/", title: "Locations", terms: "locations dojo revesby lismore gladesville blacktown ballina" },
+      { url: "gallery/", title: "Gallery", terms: "gallery photos images" },
+      { url: "events/", title: "Events", terms: "events calendar competitions" },
+      { url: "links/", title: "Links", terms: "links resources affiliations" },
+      { url: "enquiry/", title: "Contact", terms: "contact enquiry email phone message" },
+      { url: "blog/", title: "Blog", terms: "blog news posts" }
     ];
     var q = new URLSearchParams(window.location.search).get("q") || "";
     var results = document.getElementById("results");
