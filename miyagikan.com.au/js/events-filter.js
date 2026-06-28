@@ -14,9 +14,9 @@
         : parts.slice(0, eventsIdx + 1).join("/") + "/";
 
     if (/^\d{4}-\d{2}$/.test(date)) {
-      window.location.href = base + date + "/index-p-1083.html";
+      window.location.href = base + date + "/";
       return;
     }
-    window.location.href = base + "index-p-1083.html";
+    window.location.href = base;
   });
 })();

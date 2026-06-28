@@ -13,15 +13,16 @@ LEGACY_PAGE_REDIRECTS = {
     "index-p-1007": "/links/",
 }
 
+priority = []
+for legacy, target in LEGACY_PAGE_REDIRECTS.items():
+    priority.append(f"/{legacy}    {target}    301")
+    priority.append(f"/{legacy}.html    {target}    301")
+
 lines = [
     "/    /index.html    200",
     "/thank-you/    /thank-you/index.html    200",
     "/search/    /search/index.html    200",
 ]
-
-for legacy, target in LEGACY_PAGE_REDIRECTS.items():
-    lines.append(f"/{legacy}    {target}    301")
-    lines.append(f"/{legacy}.html    {target}    301")
 
 for index in SITE.rglob("index.html"):
     rel = index.relative_to(SITE).parent.as_posix()
@@ -31,5 +32,5 @@ for index in SITE.rglob("index.html"):
     target = f"/{rel}/index.html"
     lines.append(f"{public_path}    {target}    200")
 
-REDIRECTS.write_text("\n".join(sorted(set(lines))) + "\n", encoding="utf-8")
-print(f"Wrote {len(set(lines))} redirect rules to {REDIRECTS}")
+REDIRECTS.write_text("\n".join(priority + sorted(set(lines))) + "\n", encoding="utf-8")
+print(f"Wrote {len(priority) + len(set(lines))} redirect rules to {REDIRECTS}")

@@ -140,30 +140,45 @@ def fix_index_aliases(text: str) -> str:
         'action="/search/"',
         text,
     )
+    text = re.sub(r'action="index-p-\d+\.html"', 'action="/events/"', text)
+
+    # Same-page anchors that incorrectly kept the legacy filename prefix.
+    text = re.sub(r'index-p-\d+\.html(#[^"\']*)', r"\1", text)
+
+    # Search index and other JSON blobs that still reference legacy home URLs.
+    text = text.replace('{ url: "../index-p-1083.html"', '{ url: "/"')
+    text = text.replace("{ url: '../index-p-1083.html'", "{ url: '/'")
 
     return fix_logo_link(fix_main_nav(text))
 
 
-def sync_alias_pages() -> None:
-    for page_id, slug in PAGE_ALIASES.items():
-        src = SITE / slug / "index.html"
-        dst = SITE / f"index-p-{page_id}.html"
-        if src.exists():
-            shutil.copy2(src, dst)
+def remove_legacy_alias_pages() -> None:
+    for page_id in PAGE_ALIASES:
+        path = SITE / f"index-p-{page_id}.html"
+        if path.exists():
+            path.unlink()
 
 
 def main() -> None:
-    sync_alias_pages()
+    remove_legacy_alias_pages()
     updated = 0
     for path in SITE.rglob("*"):
         if not path.is_file() or path.suffix.lower() not in TEXT_SUFFIXES:
             continue
         text = path.read_text(encoding="utf-8", errors="replace")
         fixed = fix_index_aliases(fix_corrupt_css(text))
+        if path.name == "events-filter.js":
+            fixed = fixed.replace(
+                'window.location.href = base + date + "/index-p-1083.html";',
+                'window.location.href = base + date + "/";',
+            ).replace(
+                'window.location.href = base + "index-p-1083.html";',
+                "window.location.href = base;",
+            )
         if fixed != text:
             path.write_text(fixed, encoding="utf-8")
             updated += 1
-    print(f"Synced alias pages and fixed links in {updated} files")
+    print(f"Removed legacy alias pages and fixed links in {updated} files")
 
 
 if __name__ == "__main__":
