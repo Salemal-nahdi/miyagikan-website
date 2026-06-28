@@ -1,6 +1,6 @@
 [build]
   publish = "."
-  command = "python3 scripts/setup-netlify-forms.py && python3 scripts/sanitize-secrets.py && python3 scripts/generate-redirects.py"
+  command = "python3 scripts/setup-netlify-forms.py && python3 scripts/sanitize-secrets.py && python3 scripts/sanitize-filenames.py && python3 scripts/generate-redirects.py"
 
 [build.environment]
   PYTHONUNBUFFERED = "1"

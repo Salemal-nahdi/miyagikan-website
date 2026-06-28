@@ -1,15 +1,15 @@
 (function () {
   var PAGES = [
-    { url: "/miyagikan.com.au/index.html", title: "Home" },
-    { url: "/miyagikan.com.au/about/index.html", title: "About" },
-    { url: "/miyagikan.com.au/classes/index.html", title: "Classes" },
-    { url: "/miyagikan.com.au/instructors/index.html", title: "Instructors" },
-    { url: "/miyagikan.com.au/locations/index.html", title: "Locations" },
-    { url: "/miyagikan.com.au/gallery/index.html", title: "Gallery" },
-    { url: "/miyagikan.com.au/events/index.html", title: "Events" },
-    { url: "/miyagikan.com.au/links/index.html", title: "Links" },
-    { url: "/miyagikan.com.au/enquiry/index.html", title: "Contact" },
-    { url: "/miyagikan.com.au/blog/index.html", title: "Blog" },
+    { url: "/miyagikan.com.au/index-p-1083.html", title: "Home" },
+    { url: "/miyagikan.com.au/about/index-p-1083.html", title: "About" },
+    { url: "/miyagikan.com.au/classes/index-p-1083.html", title: "Classes" },
+    { url: "/miyagikan.com.au/instructors/index-p-1083.html", title: "Instructors" },
+    { url: "/miyagikan.com.au/locations/index-p-1083.html", title: "Locations" },
+    { url: "/miyagikan.com.au/gallery/index-p-1083.html", title: "Gallery" },
+    { url: "/miyagikan.com.au/events/index-ical-1.html", title: "Events" },
+    { url: "/miyagikan.com.au/links/index-p-1083.html", title: "Links" },
+    { url: "/miyagikan.com.au/enquiry/index-p-1083.html", title: "Contact" },
+    { url: "/miyagikan.com.au/blog/index-p-1083.html", title: "Blog" },
   ];
 
   function relativePrefix() {
@@ -29,7 +29,7 @@
     if (!query) return;
 
     var prefix = relativePrefix();
-    var target = prefix + "search/index.html?q=" + encodeURIComponent(query);
+    var target = prefix + "search/index-p-1083.html?q=" + encodeURIComponent(query);
     window.location.href = target;
   });
 })();
