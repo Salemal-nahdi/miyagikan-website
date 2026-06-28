@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+  command = "python3 scripts/setup-netlify-forms.py && python3 scripts/generate-redirects.py"
+
+[build.environment]
+  PYTHONUNBUFFERED = "1"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"

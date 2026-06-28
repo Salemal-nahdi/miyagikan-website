@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search - Miyagikan Karate</title>
+  <link rel="stylesheet" href="../wp-content/cache/autoptimize/css/autoptimize_f46a6ad5dc6d4da1e95a3188df3434b3.css">
+  <style>
+    body { font-family: Lato, sans-serif; margin: 0; background: #f5f5f5; }
+    .wrap { max-width: 800px; margin: 4rem auto; padding: 2rem; background: #fff; }
+    h1 { margin-top: 0; }
+    .result { padding: 1rem 0; border-bottom: 1px solid #eee; }
+    .result a { color: #c0392b; text-decoration: none; font-weight: 600; }
+    .back { display: inline-block; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Search results</h1>
+    <div id="results"></div>
+    <a class="back" href="../index.html">&larr; Back to home</a>
+  </div>
+  <script>
+    var pages = [
+      { url: "../index.html", title: "Home", terms: "miyagi kan karate home welcome" },
+      { url: "../about/index.html", title: "About", terms: "about history goju ryu traditional" },
+      { url: "../classes/index.html", title: "Classes", terms: "classes training schedule beginners advanced" },
+      { url: "../instructors/index.html", title: "Instructors", terms: "instructors teachers sensei barounis" },
+      { url: "../locations/index.html", title: "Locations", terms: "locations dojo revesby lismore gladesville blacktown ballina" },
+      { url: "../gallery/index.html", title: "Gallery", terms: "gallery photos images" },
+      { url: "../events/index.html", title: "Events", terms: "events calendar competitions" },
+      { url: "../links/index.html", title: "Links", terms: "links resources affiliations" },
+      { url: "../enquiry/index.html", title: "Contact", terms: "contact enquiry email phone message" },
+      { url: "../blog/index.html", title: "Blog", terms: "blog news posts" }
+    ];
+    var q = new URLSearchParams(window.location.search).get("q") || "";
+    var results = document.getElementById("results");
+    document.title = (q ? 'Search: ' + q + ' - ' : '') + 'Miyagikan Karate';
+    if (!q.trim()) {
+      results.innerHTML = "<p>Enter a search term using the search box on any page.</p>";
+    } else {
+      var query = q.toLowerCase();
+      var matches = pages.filter(function (p) {
+        return p.title.toLowerCase().indexOf(query) !== -1 || p.terms.indexOf(query) !== -1;
+      });
+      if (!matches.length) {
+        results.innerHTML = "<p>No results found for <strong>" + q + "</strong>.</p>";
+      } else {
+        results.innerHTML = matches.map(function (p) {
+          return '<div class="result"><a href="' + p.url + '">' + p.title + '</a></div>';
+        }).join("");
+      }
+    }
+  </script>
+</body>
+</html>

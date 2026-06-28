@@ -1,0 +1,9 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Miyagikan Karate - ECPv5.1.2//NONSGML v1.0//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Miyagikan Karate
+X-ORIGINAL-URL:https://miyagikan.com.au
+X-WR-CALDESC:Events for Miyagikan Karate
+END:VCALENDAR

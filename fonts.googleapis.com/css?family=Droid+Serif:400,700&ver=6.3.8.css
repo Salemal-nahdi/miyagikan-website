@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Droid Serif';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts.gstatic.com/s/droidserif/v20/tDbI2oqRg1oM3QBjjcaDkOr9rAXWGQyH.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Droid Serif';
+  font-style: normal;
+  font-weight: 700;
+  src: url(../fonts.gstatic.com/s/droidserif/v20/tDbV2oqRg1oM3QBjjcaDkOJGiRD7OwGtT0rU.woff2) format('woff2');
+}
